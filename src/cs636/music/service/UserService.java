@@ -31,12 +31,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * construct a user service provider
-	 * 
-	 * @param productDao
-	 * @param userDao
-	 * @param downloadDao
-	 * @param lineItemDao
-	 * @param invoiceDao
+
 	 */
 	public UserService(ProductDAO productDao, UserDAO userDao,
 			DownloadDAO downloadDao, InvoiceDAO invoiceDao, DbDAO dbdao) {
@@ -49,9 +44,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Getting list of all products
-	 * 
-	 * @return list of all product
-	 * @throws ServiceException
+
 	 */
 	public Set<Product> getProductList() throws ServiceException {
 		try {
@@ -84,10 +77,7 @@ public class UserService implements UserServiceAPI {
 	/**
 	 * Add a product to the cart. If the product is already in the cart, add
 	 * quantity. Otherwise, insert a new line item.
-	 * 
-	 * @param prod
-	 * @param cart
-	 * @param quantity
+
 	 */
 	public void addItemtoCart(Product prod, Cart cart, int quantity) {
 		LineItem item = cart.findItem(prod);
@@ -105,10 +95,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Change the quantity of one item. If quantity <= 0 then delete this item.
-	 * 
-	 * @param prod
-	 * @param cart
-	 * @param quantity
+
 	 */
 	public void changeCart(Product prod, Cart cart, int quantity) {
 		LineItem item = cart.findItem(prod);
@@ -124,9 +111,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Remove a product item from the cart
-	 * 
-	 * @param prod
-	 * @param cart
+
 	 */
 	public Cart removeCartItem(Product prod, Cart cart) {
 		LineItem item = cart.findItem(prod);
@@ -139,12 +124,7 @@ public class UserService implements UserServiceAPI {
 	/**
 	 * Register user if the email does not exist in the db, otherwise, get the
 	 * user info from db
-	 * 
-	 * @param firstname
-	 * @param lastname
-	 * @param email
-	 * @return the user info
-	 * @throws ServiceException
+
 	 */
 	public User registerUser(String firstname, String lastname, String email)
 			throws ServiceException {
@@ -169,10 +149,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Get user info by given email address
-	 * 
-	 * @param email
-	 * @return the user info found, return null if not found
-	 * @throws ServiceException
+
 	 */
 	public User getUserInfo(String email) throws ServiceException {
 
@@ -189,20 +166,13 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Return a product info by given product code
-	 * 
-	 * @param prodCode
-	 *            product code
-	 * @return the product info
-	 * @throws ServiceException
+
 	 */
 	public Product getProduct(String prodCode) throws ServiceException {
 		try {
 			db.startTransaction();
 			Product prd = prodDb.findProductByCode(prodCode);
-			// (System test needs track info for a Product)
-			// Without the following access loop, Eclipselink runs
-			// a query outside the em lifetime to get this Track
-			// data, apparently using info it has in the emf
+	
 			for (Track track : prd.getTracks())
 				track.getSampleFilename();
 			db.commitTransaction();
@@ -216,10 +186,7 @@ public class UserService implements UserServiceAPI {
 	/**
 	 * Check out the cart from the user order and then generate an invoice for
 	 * this order. Empty the cart after
-	 * 
-	 * @param cart
-	 * @param user
-	 * @throws ServiceException
+
 	 */
 	public Invoice checkout(Cart cart, User user) throws ServiceException {
 		Invoice invoice;
@@ -247,12 +214,7 @@ public class UserService implements UserServiceAPI {
 	}
 	/**
 	 * Add one download history, record the user and track
-	 * 
-	 * @param usr
-	 *            user who download the track
-	 * @param track
-	 *            the track which was downloaded
-	 * @throws ServiceException
+
 	 */
 	public void addDownload(User usr, Track track) throws ServiceException {
 		try {
@@ -261,9 +223,7 @@ public class UserService implements UserServiceAPI {
 			download.setUser(usr);
 			download.setTrack(track);
 			download.setDownloadDate(new Date());
-			// See comment in DownloadDAO on this method: 
-			// usr and track are detached objects but never deleted, 
-			// and JPA just needs their ids for the insert
+		
 			downloadDb.insertDownload(download);
 			db.commitTransaction();
 		} catch (Exception e) {
