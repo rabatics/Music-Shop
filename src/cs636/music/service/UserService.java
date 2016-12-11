@@ -31,7 +31,12 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * construct a user service provider
-
+	 * 
+	 * @param productDao
+	 * @param userDao
+	 * @param downloadDao
+	 * @param lineItemDao
+	 * @param invoiceDao
 	 */
 	public UserService(ProductDAO productDao, UserDAO userDao,
 			DownloadDAO downloadDao, InvoiceDAO invoiceDao, DbDAO dbdao) {
@@ -44,7 +49,9 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Getting list of all products
-
+	 * 
+	 * @return list of all product
+	 * @throws ServiceException
 	 */
 	public Set<Product> getProductList() throws ServiceException {
 		try {
@@ -77,7 +84,10 @@ public class UserService implements UserServiceAPI {
 	/**
 	 * Add a product to the cart. If the product is already in the cart, add
 	 * quantity. Otherwise, insert a new line item.
-
+	 * 
+	 * @param prod
+	 * @param cart
+	 * @param quantity
 	 */
 	public void addItemtoCart(Product prod, Cart cart, int quantity) {
 		LineItem item = cart.findItem(prod);
@@ -95,6 +105,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Change the quantity of one item. If quantity <= 0 then delete this item.
+	 * 
 
 	 */
 	public void changeCart(Product prod, Cart cart, int quantity) {
@@ -111,7 +122,7 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Remove a product item from the cart
-
+	
 	 */
 	public Cart removeCartItem(Product prod, Cart cart) {
 		LineItem item = cart.findItem(prod);
@@ -166,13 +177,17 @@ public class UserService implements UserServiceAPI {
 
 	/**
 	 * Return a product info by given product code
+	 * 
 
 	 */
 	public Product getProduct(String prodCode) throws ServiceException {
 		try {
 			db.startTransaction();
 			Product prd = prodDb.findProductByCode(prodCode);
-	
+			// (System test needs track info for a Product)
+			// Without the following access loop, Eclipselink runs
+			// a query outside the em lifetime to get this Track
+			// data, apparently using info it has in the emf
 			for (Track track : prd.getTracks())
 				track.getSampleFilename();
 			db.commitTransaction();
@@ -214,6 +229,7 @@ public class UserService implements UserServiceAPI {
 	}
 	/**
 	 * Add one download history, record the user and track
+	 * 
 
 	 */
 	public void addDownload(User usr, Track track) throws ServiceException {
@@ -223,7 +239,9 @@ public class UserService implements UserServiceAPI {
 			download.setUser(usr);
 			download.setTrack(track);
 			download.setDownloadDate(new Date());
-		
+			// See comment in DownloadDAO on this method: 
+			// usr and track are detached objects but never deleted, 
+			// and JPA just needs their ids for the insert
 			downloadDb.insertDownload(download);
 			db.commitTransaction();
 		} catch (Exception e) {

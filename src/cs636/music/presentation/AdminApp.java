@@ -15,10 +15,7 @@ import cs636.music.service.ServiceException;
  * later. 
  * 
  */
-/**
- * @author Chung-Hsine Yu
- * 
- */
+
 public class AdminApp {
 
 	private AdminServiceAPI adminService;

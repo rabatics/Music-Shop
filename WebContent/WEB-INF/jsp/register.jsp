@@ -4,15 +4,24 @@
     <meta charset="utf-8">
     <title>Register</title>
     <link rel="stylesheet" href="styles/main.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    
+    <script src="../assets/js/html5shiv.js "></script>
+   
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css">
+
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
-<body>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/includes/sidebar.jsp" />
+<jsp:include page="/includes/header.jsp" />
+<body>
+<div class="container">
+<div class="hero-unit">
 
 
 <c:url value="/registerUser.html" var="catalog" />
 
-
+<p></p><p></p><p></p><p></p><p></p>
 <h1>Registration :</h1>
 
 <c:if test="${!empty user }">
@@ -41,9 +50,10 @@
     <label class="pad_top">Last Name:</label>
     <input type="text" name="lastName" value="" required><br>        
     <label>&nbsp;</label>
-    <input type="submit" value="Register" class="margin_left">
+    <input class="btn btn-primary" type="submit" value="Register">
 </form>
 </c:if>
+</div></div>
 </body>
 
 </html>

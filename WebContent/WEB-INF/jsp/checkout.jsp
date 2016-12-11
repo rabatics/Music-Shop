@@ -5,10 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Invoice</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    
+    <script src="../assets/js/html5shiv.js "></script>
+   
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css">
+
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
 <body>
+<div class="container">
+<div class="hero-unit">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/includes/sidebar.jsp" />
+<jsp:include page="/includes/header.jsp" />
 <c:url value="./thanks.html" var="thanks" />
 <c:url var="showCart" value="/showCart.html" />
 <c:if test="${!empty user }">
@@ -22,15 +31,21 @@
 <form method="get" action="${thanks}">
 
 <br>
+<table class="table table-hover">
+<tr>
 <c:forEach items="${in}"  var="inl">
-<p>${inl.getProduct().getCode()}  -------  ${inl.getQuantity()} -------- ${ inl.calculateItemTotal()} <br>
+<td>${inl.getProduct().getCode()} </td><td> ${inl.getQuantity()} </td><td> ${ inl.calculateItemTotal()}</td> 
  </c:forEach>
+ </tr>
+ </table>
 Total Price: ${invoice.getTotalAmount() }
 <br>
-<input type="submit" value="Finish">
+<input class="btn btn-success" type="submit" value="Finish">
 </form>  	
 <br>
 
 </c:if>
+</div>
+</div>
 </body>
 </html>

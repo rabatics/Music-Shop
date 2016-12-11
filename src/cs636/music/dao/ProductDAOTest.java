@@ -19,30 +19,23 @@ public class ProductDAOTest {
 	
 	@BeforeClass
 	public static void setUpClass() {
-		// we usually use HSQLDB as a db for testing, but 
-		// this can run for other DBs too
-		// Note: need to load it first and "ant config-hsqldb"
-		// to get the persistence.xml file onto the classpath
-		// Do this part once for this whole class--takes some time
+
 		emf = MusicSystemConfig.configureJPA();
 	}
 
 	@Before
-	// each test runs in its own transaction, on same db setup
+	
 	public void setup() throws Exception {
 		dbDAO = new DbDAO(emf);
 		dbDAO.startTransaction();
-		dbDAO.initializeDb(); // no orders, toppings, sizes
+		dbDAO.initializeDb(); 
 		dbDAO.commitTransaction();
 		productdao = new ProductDAO(dbDAO);
 	}
 
 	@After
 	public void tearDown() {
-		// This executes even after an exception
-		// so we need to rollback here in case of exception
-		// (If the transaction was successful, it's already
-		// committed, and this won't hurt.)
+	
 		dbDAO.rollbackAfterException();
 	}
 	@AfterClass

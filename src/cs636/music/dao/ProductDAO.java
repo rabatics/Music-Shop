@@ -14,17 +14,15 @@ import cs636.music.domain.Product;
 /**
  * 
  * Access product and track table through this class. 
- * music2: Track objects are now all handled by JPA as
- * details of Product
- * @author Chung-Hsien (Jacky) Yu
+ 
+
  */
 public class ProductDAO {
 	DbDAO dbdao;
 
 	/**
 	 * An Data Access Object for product table and track table 
-	 * @param db the database connection
-	 * @throws SQLException
+	 
 	 */
 	public ProductDAO(DbDAO db) {
 		dbdao = db;
@@ -32,8 +30,7 @@ public class ProductDAO {
 	
 	/**
 	 * Find a product with its tracks from given product code 
-	 * @param prod_id
-	 * @return the product found, return null if not found
+
 	 */
 	public Product findProductByCode(String prodCode) {
 		EntityManager em = dbdao.getEM();
@@ -49,8 +46,7 @@ public class ProductDAO {
 
 	/**
 	 * Find all product in product table 
-	 * Their tracks are lazily loaded if accessed in service layer.
-	 * @return all products in a set
+	 
 	 */
 	public Set<Product> findAllProducts(){
 		EntityManager em = dbdao.getEM();

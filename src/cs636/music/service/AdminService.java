@@ -10,11 +10,7 @@ import cs636.music.domain.Download;
 import cs636.music.domain.Invoice;
 import cs636.music.domain.LineItem;
 
-/**
- * 
- * Provide admin level services to user app through accessing DAOs 
- * @author Chung-Hsien (Jacky) Yu
- */
+
 public class AdminService implements AdminServiceAPI {
 	
 	private DbDAO db;
@@ -22,12 +18,7 @@ public class AdminService implements AdminServiceAPI {
 	private InvoiceDAO invoiceDb;
 	private AdminDAO adminDb;
 	
-	/**
-	 * construct a admin service provider 
-	 * @param dbDao
-	 * @param downloadDao
-	 * @param invoiceDao
-	 */
+
 	public AdminService(DbDAO dbDao, DownloadDAO downloadDao ,InvoiceDAO invoiceDao, AdminDAO adminDao) {
 		db = dbDao;
 		downloadDb = downloadDao;
@@ -47,8 +38,7 @@ public class AdminService implements AdminServiceAPI {
 			db.initializeDb();
 			db.commitTransaction();
 		} catch (Exception e) { // any exception
-			// the following doesn't itself throw, but it handles the case that
-			// rollback throws, discarding that exception object
+			
 			db.rollbackAfterException();
 			throw new ServiceException(
 					"Can't initialize DB: (probably need to load DB)", e);
@@ -57,10 +47,7 @@ public class AdminService implements AdminServiceAPI {
 	
 	/**
 	 * process the invoice
-	 * @param invoice_id
-	 * @throws ServiceException
-	 * JPA note: we can do the set to "y" here (it was in the DAO in music1)
-	 * JPA tracks the change and does the update.
+
 	 */
 	public void processInvoice(long invoice_id) throws ServiceException {
 		try {
@@ -78,16 +65,13 @@ public class AdminService implements AdminServiceAPI {
 
 	/**
 	 * Get a list of all invoices, including line items and user details
-	 * @return list of all invoices
-	 * @throws ServiceException
+
 	 */
 	public Set<Invoice> getListofInvoices() throws ServiceException {
 		try {
 			db.startTransaction();
 			Set<Invoice> invoices = invoiceDb.findAllInvoices();
-			// Might have lazy loading, so fill in line items (to-many)
-			// but user is to-one, so eagerly loaded by default
-			// to make sure they are there for use in presentation layer
+			
 			for (Invoice invoice : invoices) {
 				for (LineItem li : invoice.getLineItems())
 					li.getQuantity();
@@ -103,8 +87,7 @@ public class AdminService implements AdminServiceAPI {
 	
 	/**
 	 * Get a list of all unprocessed invoices, no details
-	 * @return list of all unprocessed invoices
-	 * @throws ServiceException
+	
 	 */
 	public Set<Invoice> getListofUnprocessedInvoices() throws ServiceException {
 		try {
@@ -121,8 +104,7 @@ public class AdminService implements AdminServiceAPI {
 	
 	/**
 	 * Get a list of all downloads, including track, product, and user details
-	 * @return list of all downloads
-	 * @throws ServiceException
+
 	 */
 	public Set<Download> getListofDownloads() throws ServiceException {
 		try {
@@ -143,10 +125,7 @@ public class AdminService implements AdminServiceAPI {
 	
 	/**
 	 * Check login user
-	 * @param username
-	 * @param password
-	 * @return true if useranme and password exist, otherwise return false
-	 * @throws ServiceException
+	
 	 */
 	public Boolean checkLogin(String username,String password) throws ServiceException {
 		try {

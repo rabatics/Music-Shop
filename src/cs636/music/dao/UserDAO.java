@@ -11,7 +11,7 @@ import cs636.music.domain.User;
 /**
  * 
  * Access site_user table through this class.
- * @author Chung-Hsien (Jacky) Yu
+ 
  */
 public class UserDAO {
 	
@@ -20,7 +20,7 @@ public class UserDAO {
 	
 	/**
 	 * An Data Access Object for site_user table
-	 * @param db the database connection
+
 	 */
 	public UserDAO(DbDAO db) {
 		dbdao = db;
@@ -28,7 +28,7 @@ public class UserDAO {
 	
 	/**
 	 * 
-	 * @param usr the site_user domain contains user data
+
 	 */
 	public void insertUser(User user) {
 		dbdao.getEM().persist(user);
@@ -36,8 +36,7 @@ public class UserDAO {
 	
 	/**
 	 * Find a user from site user table by its email
-	 * @param email user's email we try to find
-	 * @return an User object if exist, or return null 
+	
 	 */
 	public User findUserByEmail(String email) {
 		EntityManager em = dbdao.getEM();

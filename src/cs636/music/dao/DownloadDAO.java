@@ -13,7 +13,7 @@ import cs636.music.domain.Download;
 /**
  * 
  * Access Download table through this class. 
- * @author Chung-Hsien (Jacky) Yu
+
  */
 public class DownloadDAO {
 	
@@ -21,20 +21,15 @@ public class DownloadDAO {
 
 	/**
 	 * An Data Access Object for Download table
-	 * @param db the database connection
-	 * @param user_db using the site user table 
+
 	 */
 	public DownloadDAO(DbDAO db ){
 		dbdao = db;
 	}
 
 	/**
-	 * insert a download history to download table
-	 * Note: it's OK for download to reference a detached User
-	 * and/or Track in this call, since only their ids
-	 * are needed, and User and Track are never deleted
-	 * in this app.
-	 * @param download
+
+	
 	 */
 	public void insertDownload(Download download) {
 		EntityManager em = dbdao.getEM();
@@ -44,7 +39,7 @@ public class DownloadDAO {
 	
 	/**
 	 * find all downloads
-	 * @return all download history in a Set
+	
 	 */
 	public Set<Download> findAllDownloads() {
 		EntityManager em = dbdao.getEM();

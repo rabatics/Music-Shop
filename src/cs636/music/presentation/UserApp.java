@@ -149,13 +149,13 @@ public class UserApp {
 			} else if (command.equalsIgnoreCase("S")) {
 				// show cart
 				handleCartPage(null);
-				return; // redisplay whole catalog after display of cart
+				return; 
 
 			} else if (command.equalsIgnoreCase("L") && (!listening)) {
-				// creating User if necessary (required for download)
+			
 				if (user == null)
-				   user = userUI(); // do simple registration if needed
-				listening = true; // switch this method to the Sound page
+				   user = userUI(); 
+				listening = true; 
 
 			} else if (command.equalsIgnoreCase("T") && listening) {
 				String trackNumberString = PresentationUtils.readEntry(in,
@@ -163,7 +163,7 @@ public class UserApp {
 				int trackNumber = Integer.parseInt(trackNumberString);
 				System.out.println("getting Track " + trackNumber	
 				 	+ ", recording download and fake-playing track");
-				// user stays on Sound page (listening == true)
+			
 				Track track = product.findTrackByNumber(trackNumber);
 				if (track != null) {
 					PresentationUtils.playTrack(track, System.out);

@@ -5,12 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Products</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    
+    <script src="../assets/js/html5shiv.js "></script>
+   
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css">
+
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 </head>
-<body>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/includes/sidebar.jsp" />
+<jsp:include page="/includes/header.jsp" />
+<body>
+<p></p><p></p><p></p><p></p>
 <c:url value="prodDetails.html" var="productDisplay" />
 <c:url var="showCart" value="/showCart.html" />
+<div class="container">
+<div class="hero-unit">
 <c:if test="${!empty user }">
 <p> Hello ${user.getFirstname()}</p>
 </c:if>
@@ -18,21 +28,25 @@
  	
 
 Enter the product code to see the product details.
+	</div>
 	
 <form method="get" action="${productDisplay}">
-<table>
+ <div class="row">
 	<c:forEach items="${product}" var="curprod">
-	<tr><td>
-<input type="radio" name="productCode" value="${curprod.getCode()}" required /></td><td> &nbsp; &nbsp; &nbsp;   ${curprod.getCode()}  
-     </td><td> &nbsp; &nbsp; &nbsp; &nbsp;     ${curprod.getDescription()}  </td></tr>
+	
+        <div class="span4">
+<input type="radio" name="productCode" value="${curprod.getCode()}" required /><br><img src="${pageContext.request.contextPath}/images/music.png" height="100" width="100"><br>   ${curprod.getCode()}  <br>
+         ${curprod.getDescription()}  
+	</div>
+	
 	
 	</c:forEach>
-	</table>
+	</div>
 <br>
-<input type="submit" value="Get Details">
+<input class="btn" type="submit" value="Get Details">
 </form>  	
 <br>
-
+</div>
 
 </body>
 </html>

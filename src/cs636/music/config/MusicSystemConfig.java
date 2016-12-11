@@ -78,17 +78,13 @@ public class MusicSystemConfig {
 		}
 	}
 	
-	// The configuration information is read from the persistence.xml file
-	// on the classpath.  This may throw a RuntimeException.
-	// During this call, TransactionSessionCustomizer is used
-	// to set serializable isolation level.
+
 	public static EntityManagerFactory configureJPA() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("music2el");
 		return emf;
 	}
 	
-	// Try to get a DataSource from tomcat's JNDI object repository config'd in context.xml
-	// Uncomment the call to this above if interested
+
 	@SuppressWarnings("unused")
 	private static void tryDS(String dataSourceName) {
 		try {
@@ -109,8 +105,7 @@ public class MusicSystemConfig {
 		}
 	}
 	
-	// This method is not needed for setup: just testing early for ability to get an EM
-	// Try a test EM session and get the isolation level, if such access is supported by this driver
+	
 	private static void testEMF(EntityManagerFactory emf) throws Exception
 	{
 		EntityManager em = null;
@@ -125,10 +120,10 @@ public class MusicSystemConfig {
 		System.out.println("testEMF: Got an EM");
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-		// dig down in software to get the actual JDBC Connection, if this driver will allow us...
+		
 		try {
 			System.out.println("testEM: Trying to get JDBC Connection from EM (not always supported) ...");
-			// This trick doesn't work for mysql, or some versions of it anyway
+			
 			Connection conn = em.unwrap(Connection.class);
 			if (conn == null)
 				System.out.println("failed to get underlying JDBC Connection from EM, so won't be able to get isolation level this way");
@@ -143,8 +138,7 @@ public class MusicSystemConfig {
 		}
 	}
 
-	// Compose an exception report
-	// and return the string for callers to use
+
 	public static String exceptionReport(Exception e) {
 		String message = e.toString(); // exception name + message
 		if (e.getCause() != null) {
@@ -163,14 +157,13 @@ public class MusicSystemConfig {
 		return sw.toString();
 	}
 
-	// call this to free up system resources
-	// allocated by configureJPA(). 
+ 
 	public static void shutdownServices() {
 		if (emf != null && !emf.isOpen())
 			emf.close();
 	}
 	
-	// Let the apps get the business logic layer services
+
 	public static AdminServiceAPI getAdminService() {
 		return adminService;
 	}

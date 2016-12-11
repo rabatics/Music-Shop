@@ -84,7 +84,7 @@ public class Track implements Serializable {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-	// return path from sound base directory for this sample
+	
 	public String sampleFilenamePath() {
 		return product.getCode() + "/" + sampleFilename;
 	}

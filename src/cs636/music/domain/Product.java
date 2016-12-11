@@ -38,7 +38,7 @@ public class Product implements Serializable {
 	@Column(name="PRODUCT_PRICE", nullable=false, precision=10, scale=2)
 	private BigDecimal productPrice;
 
-	//bi-directional one-to-many association to Track
+
 	@OneToMany(mappedBy="product")
 	private Set<Track> tracks;
 

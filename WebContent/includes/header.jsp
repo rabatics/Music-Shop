@@ -6,25 +6,27 @@
     JSP will generate a HTML <meta> tag for UTF-8 from this info. 
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<title>Music Shop</title>
-<link rel="stylesheet" href="<c:url value='/styles/main.css'/> ">
-  <link href="../assets/css/bootstrap.css" rel="stylesheet">
-    
-    <script src="../assets/js/html5shiv.js"></script>
-   
-    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
-
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
- <link rel="shortcut icon" href="<c:url value='/images/pizzapie.ico'/>">
-<body>
   <c:url var="welcomeURL" value="/welcome.html" />
        
         <c:url var="catalogWelcomeURL" value="/UserCatalog.html" />
         <c:url var="viewCartURL" value="/showCart.html" />
          <c:url var="logoutURL" value="/thanks.html" />
          <c:url var="register" value="/register.html" />
+<!DOCTYPE html>
+<html>
+<head>
+<title>Music Shop</title>
+<link rel="stylesheet" href="<c:url value='/styles/main.css'/> ">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+    
+    <script src="../assets/js/html5shiv.js "></script>
+   
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.css">
+
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ <link rel="shortcut icon" href="<c:url value='/images/pizzapie.ico'/>"></head>
+<body>
+
 	  <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
